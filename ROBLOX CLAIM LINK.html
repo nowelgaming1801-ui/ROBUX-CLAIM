@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Robux Giveaway Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  margin:0;font-family:Arial,sans-serif;color:#fff;min-height:100vh;
+  background:
+    linear-gradient(rgba(2,6,23,.85),rgba(2,6,23,.85)),
+    url("https://i.ytimg.com/vi/C6YHdlaqhEA/maxresdefault.jpg");
+  background-size:cover;background-position:center;
+}
+.wrap{min-height:100vh;display:flex;justify-content:center;align-items:center;}
+.card{
+  width:380px;background:rgba(2,6,23,.92);
+  border:2px solid #22c55e;border-radius:22px;padding:22px;
+  box-shadow:0 0 30px rgba(34,197,94,.45);
+}
+h2{text-align:center;color:#22c55e;margin-bottom:10px;}
+.step{border:1px solid #334155;border-radius:14px;padding:14px;margin-bottom:14px;}
+.btn{padding:10px 14px;border:none;border-radius:10px;background:#22c55e;color:#000;font-weight:bold;cursor:pointer;}
+.btn.small{padding:8px 12px;}
+.btn:disabled{background:#000;color:#94a3b8;cursor:not-allowed;}
+.input{
+  width:100%;padding:10px;border-radius:10px;border:1px solid #334155;
+  background:#020617;color:#fff;margin-top:8px;
+}
+.list{display:none;}
+.item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #334155;}
+.item:last-child{border:none;}
+.item.claimed{opacity:.55;}
+.result{display:none;margin-top:16px;padding:18px;border:2px dashed #38bdf8;border-radius:16px;text-align:center;}
+.big{font-size:22px;color:#facc15;font-weight:bold;}
+.note{font-size:12px;color:#94a3b8;text-align:center;margin-top:10px;}
+.toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#000;border:1px solid #22c55e;color:#22c55e;
+  padding:10px 14px;border-radius:12px;display:none;
+}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card">
+  <h2>🎁 Robux Giveaway</h2>
+
+  <div class="step">
+    <b>STEP 1 – Visit YouTube Channel</b><br><br>
+    <button class="btn" onclick="goYT()">Open Channel</button>
+  </div>
+
+  <div class="step list" id="step2">
+    <b>STEP 2 – Enter Roblox Username</b>
+    <input class="input" id="uid" placeholder="Enter Roblox Username" oninput="checkUID()">
+
+    <div class="list" id="claims">
+      <hr style="border-color:#334155">
+      <b>Claim (Demo)</b>
+      <div class="item"><span>50 Robux</span><button class="btn small claimBtn" onclick="claim(this)">Claim</button></div>
+      <div class="item"><span>100 Robux</span><button class="btn small claimBtn" onclick="claim(this)">Claim</button></div>
+      <div class="item"><span>200 Robux</span><button class="btn small claimBtn" onclick="claim(this)">Claim</button></div>
+      <div class="item"><span>500 Robux</span><button class="btn small claimBtn" onclick="claim(this)">Claim</button></div>
+      <div class="item"><span>1000 Robux</span><button class="btn small claimBtn" onclick="claim(this)">Claim</button></div>
+
+      <div class="result" id="final">
+        <div class="big">🎉 CONGRATULATIONS</div><br>
+        ⏱ Pending – Processing within <b>24 Hours</b><br><small>(Demo)</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Demo / Education Purpose Only</div>
+</div></div>
+
+<div class="toast" id="toast">✅ Claimed</div>
+
+<script>
+function goYT(){
+  window.open("https://youtube.com/@nowelgaming","_blank");
+  document.getElementById("step2").style.display="block";
+}
+function checkUID(){
+  const v=document.getElementById('uid').value.trim();
+  document.getElementById('claims').style.display = v ? 'block' : 'none';
+}
+function claim(btn){
+  btn.disabled=true;btn.textContent="Claimed";
+  btn.closest('.item').classList.add('claimed');toast("✅ Claimed");
+  const all=[...document.querySelectorAll('.claimBtn')].every(b=>b.disabled);
+  if(all) document.getElementById('final').style.display='block';
+}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1200);}
+</script>
+</body>
+</html>
